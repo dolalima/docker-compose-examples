@@ -5,7 +5,7 @@ services:
     image: mysql
     volumes:
      - /docker-storage/wp:/lib/mysql/data
-    netwoks:
+    networks:
       - wp-network
     deploy:
       resources:
@@ -19,7 +19,7 @@ services:
     image: wordpress
     volumes:
       - /docker-storage/wp:/var/www/html/wp-content/uploads
-    netwoks:
+    networks:
       - wp-network
     deploy:
       mode: global
