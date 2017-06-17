@@ -1,5 +1,5 @@
 services:
-  database:
+  db:
     image: mysql
     volumes:
      - /docker-storage/wp:/lib/mysql/data
@@ -13,7 +13,7 @@ services:
         reservations:
           cpus: '0.0001'
           memory: 20M
-  blog:
+  application:
     image: wordpress
     volumes:
       - /docker-storage/wp:/var/www/html/wp-content/uploads
