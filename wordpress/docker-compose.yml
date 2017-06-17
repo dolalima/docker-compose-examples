@@ -1,0 +1,27 @@
+services:
+  database:
+    image: mysql
+    volumes:
+     - /docker-storage/wp:/lib/mysql/data
+    netwoks:
+      - wp-network
+    deploy:
+      resources:
+        limits:
+          cpus: '10.0'
+          memory: 250M
+        reservations:
+          cpus: '0.0001'
+          memory: 20M
+  blog:
+    image: wordpress
+    volumes:
+      - /docker-storage/wp:/var/www/html/wp-content/uploads
+    netwoks:
+      - wp-network
+    deploy:
+      mode: global
+      replicas: 3
+      update_config:
+        parallelism: 2
+        delay: 10s
