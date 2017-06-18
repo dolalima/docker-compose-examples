@@ -7,23 +7,11 @@ services:
      - /docker-storage/wp:/lib/mysql/data
     networks:
       - wp-network
-    deploy:
-      resources:
-        limits:
-          cpus: '10.0'
-          memory: 250M
-        reservations:
-          cpus: '0.0001'
-          memory: 20M
   application:
     image: wordpress
     volumes:
       - /docker-storage/wp:/var/www/html/wp-content/uploads
+    depends:
+      - db
     networks:
       - wp-network
-    deploy:
-      mode: global
-      replicas: 3
-      update_config:
-        parallelism: 2
-        delay: 10s
