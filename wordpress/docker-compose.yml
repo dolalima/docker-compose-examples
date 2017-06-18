@@ -9,8 +9,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=12345
       - MYSQL_DATABASE=wordpress
-    volumes:
-      - /docker/storage/wp/database:/var/lib/mysql
 
   wordpress:
     image: wordpress
@@ -18,8 +16,6 @@ services:
       - 81:80
     networks:
       - interna
-    volumes:
-          - /docker/storage/wp/uploads:/var/www/html/wp-content/uploads
     depends_on:
       - mysql
     deploy:
