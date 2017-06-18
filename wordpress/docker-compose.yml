@@ -1,17 +1,34 @@
 version: "3"
 
 services:
-  db:
+
+  mysql:
     image: mysql
-    volumes:
-     - /docker-storage/wp:/lib/mysql/data
     networks:
-      - wp-network
-  application:
+      - interna
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_DATABASE=wordpress
+    volumes:
+      - /docker/storage/wp/database:/var/lib/mysql
+
+  wordpress:
     image: wordpress
-    volumes:
-      - /docker-storage/wp:/var/www/html/wp-content/uploads
-    depends:
-      - db
+    ports:
+      - 81:80
     networks:
-      - wp-network
+      - interna
+    volumes:
+          - /docker/storage/wp/uploads:/var/www/html/wp-content/uploads
+    depends_on:
+      - mysql
+    deploy:
+      mode: replicated
+      replicas: 3
+    environment:
+      - WORDPRESS_DB_HOST=mysql:3306
+      - WORDPRESS_DB_PASSWORD=12345
+      - WORDPRESS_DB_USER=root
+
+networks:
+    interna:
