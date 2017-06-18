@@ -5,7 +5,7 @@ services:
   mysql:
     image: mysql
     volumes:
-      - type: bind
+      - type: volume
           source: /docker/storage/wp/database
           target: /var/lib/mysql
     networks:
@@ -19,7 +19,7 @@ services:
     ports:
       - 81:80
     volumes:
-      - type: bind
+      - type: volume
         source: /docker/storage/wp/uploads
         target: /var/www/html/wp-content/uploads
     networks:
